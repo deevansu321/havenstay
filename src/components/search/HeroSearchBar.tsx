@@ -139,6 +139,12 @@ export function HeroSearchBar({
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             onFocus={() => setActiveTab('where')}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
             placeholder="Search destinations, villas, cities"
             className="w-full bg-transparent text-sm font-medium text-gray-800 placeholder-gray-500 focus:outline-hidden truncate"
           />
@@ -149,7 +155,7 @@ export function HeroSearchBar({
                 e.stopPropagation();
                 setLocation('');
               }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 cursor-pointer"
             >
               <X className="h-3 w-3" />
             </button>

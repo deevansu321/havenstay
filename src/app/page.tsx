@@ -9,6 +9,7 @@ import { FilterModal } from '@/components/category/FilterModal';
 import { IconsSection } from '@/components/home/IconsSection';
 import { CuratedCollections } from '@/components/home/CuratedCollections';
 import { StayReels } from '@/components/home/StayReels';
+import { InspirationGetaways } from '@/components/home/InspirationGetaways';
 import { FilterState } from '@/lib/types';
 import { EmptyState } from '@/components/common/EmptyState';
 import { MapPin, Sparkles, SlidersHorizontal, Flame } from 'lucide-react';
@@ -142,6 +143,9 @@ function HomeContent() {
           />
         )}
       </div>
+
+      {/* Inspiration For Future Getaways (Airbnb India Section) */}
+      <InspirationGetaways />
 
       {/* Filter Modal */}
       <FilterModal

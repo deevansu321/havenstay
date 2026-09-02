@@ -45,6 +45,8 @@ import {
 
 import { EcoScorecard } from '@/components/property/EcoScorecard';
 import { NeighborhoodVibes } from '@/components/property/NeighborhoodVibes';
+import { GuestFavoriteBadge } from '@/components/property/GuestFavoriteBadge';
+import { TransportationGuide } from '@/components/property/TransportationGuide';
 
 interface RoomPageProps {
   params: Promise<{ id: string }>;
@@ -287,6 +289,15 @@ export default function RoomPage({ params }: RoomPageProps) {
         </div>
       </div>
 
+      {/* Guest Favorite Trophy Banner (Iconic Airbnb Banner) */}
+      {property.isGuestFavorite && (
+        <GuestFavoriteBadge
+          rating={property.rating}
+          reviewsCount={property.reviewsCount}
+          isSuperhost={property.isSuperhost}
+        />
+      )}
+
       {/* Main Content & Sticky Booking Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2 sm:pt-4">
         {/* Left Information Column */}
@@ -482,6 +493,9 @@ export default function RoomPage({ params }: RoomPageProps) {
         <div className="h-72 sm:h-[400px] w-full rounded-3xl overflow-hidden shadow-sm">
           <InteractiveMap properties={[property]} selectedPropertyId={property.id} />
         </div>
+
+        {/* Transportation & Transit Guide */}
+        <TransportationGuide city={property.location.city} />
       </div>
 
       {/* Mobile Bottom Sticky Reserve Bar */}

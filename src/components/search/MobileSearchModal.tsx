@@ -103,6 +103,12 @@ export function MobileSearchModal({
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSearch();
+                    }
+                  }}
                   placeholder="Search destinations (e.g. Goa, Manali, Paris)"
                   className="w-full rounded-2xl border border-gray-300 py-3 pl-10 pr-4 text-sm font-semibold text-[#222222] focus:border-black focus:outline-hidden"
                 />

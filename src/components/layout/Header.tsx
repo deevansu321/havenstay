@@ -111,25 +111,37 @@ export function Header() {
             />
           </div>
 
-          {/* Mobile Search Pill */}
-          <div className="flex md:hidden items-center flex-1 gap-2">
+          {/* Mobile App-Style Floating Search Pill */}
+          <div className="flex md:hidden items-center flex-1 gap-2 py-1">
             <button
               type="button"
               onClick={() => setIsMobileSearchOpen(true)}
-              className="flex-1 flex items-center gap-3 rounded-full border border-gray-200 bg-white py-2 px-3.5 shadow-airbnb-search text-left"
+              className="flex-1 flex items-center gap-2.5 rounded-full border border-gray-200/90 bg-white py-1.5 px-2.5 shadow-airbnb-search text-left active:scale-98 transition-transform"
             >
-              <Search className="h-4 w-4 text-[#FF385C] stroke-[2.5] shrink-0" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-tr from-[#FF385C] to-[#E00B41] text-white shrink-0 shadow-2xs">
+                <Search className="h-4 w-4 stroke-[2.5]" />
+              </div>
               <div className="flex-1 min-w-0">
-                <span className="font-bold text-xs text-[#222222] block truncate">Where to?</span>
-                <span className="text-[11px] text-gray-500 block truncate">Anywhere · Any week · Add guests</span>
+                <span className="font-bold text-xs text-[#222222] block leading-tight">Where to?</span>
+                <span className="text-[10px] text-gray-500 font-medium block truncate">Anywhere · Any week · Guests</span>
               </div>
             </button>
 
             <button
               type="button"
+              onClick={() => setIsAiPlannerOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-tr from-rose-50 to-purple-50 border border-purple-200 text-[#FF385C] shadow-2xs shrink-0 active:scale-90 transition-transform"
+              aria-label="AI Planner"
+              title="Plan with AI"
+            >
+              <Sparkles className="h-4 w-4" />
+            </button>
+
+            <button
+              type="button"
               onClick={() => setIsCurrencyModalOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-2xs shrink-0"
-              aria-label="Currency"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-2xs shrink-0 active:scale-90 transition-transform"
+              aria-label="Currency & Language"
             >
               <Globe className="h-4 w-4" />
             </button>

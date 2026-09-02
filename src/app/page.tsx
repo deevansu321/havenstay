@@ -8,6 +8,7 @@ import { CategoryNav } from '@/components/category/CategoryNav';
 import { FilterModal } from '@/components/category/FilterModal';
 import { IconsSection } from '@/components/home/IconsSection';
 import { CuratedCollections } from '@/components/home/CuratedCollections';
+import { StayReels } from '@/components/home/StayReels';
 import { FilterState } from '@/lib/types';
 import { EmptyState } from '@/components/common/EmptyState';
 import { MapPin, Sparkles, SlidersHorizontal, Flame } from 'lucide-react';
@@ -85,7 +86,7 @@ function HomeContent() {
   }, [filters]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-8">
       {/* Category Horizontal Navigation */}
       <div className="sticky top-16 sm:top-20 z-30 bg-white pt-1">
         <CategoryNav
@@ -93,6 +94,9 @@ function HomeContent() {
           activeFilterCount={activeFilterCount}
         />
       </div>
+
+      {/* StayReels Stories */}
+      {categoryParam === 'all' && <StayReels />}
 
       {/* Curated Collection Banners */}
       {categoryParam === 'all' && <CuratedCollections />}

@@ -9,6 +9,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { AuthModal } from '@/components/auth/AuthModal';
+import { LiveBookingTicker } from '@/components/common/LiveBookingTicker';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default function RootLayout({
                 <Footer />
                 <MobileNav />
                 <AuthModal />
+                <LiveBookingTicker />
               </BookingProvider>
             </WishlistProvider>
           </AuthProvider>

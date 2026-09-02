@@ -136,6 +136,19 @@ export default function AccountPage() {
           </Link>
 
           <Link
+            href="/passport"
+            className="flex items-start gap-4 p-5 rounded-3xl border border-gray-200 bg-white hover:shadow-airbnb-card hover:border-black transition-all group"
+          >
+            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 shrink-0 group-hover:scale-110 transition-transform">
+              <Award className="h-5 w-5 sm:h-6 sm:w-6" />
+            </div>
+            <div className="space-y-1 min-w-0">
+              <h3 className="font-bold text-sm sm:text-base text-[#222222]">Travel Passport & Stamps</h3>
+              <p className="text-xs text-gray-500">Collect verified stamps, unlock loyalty tiers & rewards.</p>
+            </div>
+          </Link>
+
+          <Link
             href="/settings"
             className="flex items-start gap-4 p-5 rounded-3xl border border-gray-200 bg-white hover:shadow-airbnb-card hover:border-black transition-all group"
           >

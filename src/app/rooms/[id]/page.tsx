@@ -43,6 +43,9 @@ import {
   Volume2,
 } from 'lucide-react';
 
+import { EcoScorecard } from '@/components/property/EcoScorecard';
+import { NeighborhoodVibes } from '@/components/property/NeighborhoodVibes';
+
 interface RoomPageProps {
   params: Promise<{ id: string }>;
 }
@@ -400,6 +403,16 @@ export default function RoomPage({ params }: RoomPageProps) {
               nights={5}
               propertyTitle={property.title}
             />
+          </div>
+
+          {/* Futuristic Feature 5: EcoScorecard */}
+          <div className="py-4 sm:py-6">
+            <EcoScorecard />
+          </div>
+
+          {/* Futuristic Feature 6: Neighborhood Hidden Gems */}
+          <div className="py-4 sm:py-6">
+            <NeighborhoodVibes city={property.location.city} />
           </div>
 
           {/* Host Card Profile */}

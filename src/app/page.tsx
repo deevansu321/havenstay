@@ -1,69 +1,160 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { PROPERTIES } from '@/data/properties';
+import { PropertyCard } from '@/components/property/PropertyCard';
+import { CategoryNav } from '@/components/category/CategoryNav';
+import { FilterModal } from '@/components/category/FilterModal';
+import { IconsSection } from '@/components/home/IconsSection';
+import { CuratedCollections } from '@/components/home/CuratedCollections';
+import { FilterState } from '@/lib/types';
+import { EmptyState } from '@/components/common/EmptyState';
+import { MapPin, Sparkles, SlidersHorizontal, Flame } from 'lucide-react';
+
+function HomeContent() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category') || 'all';
+
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterState>({});
+
+  // Filter properties based on category and custom filter criteria
+  const filteredProperties = useMemo(() => {
+    return PROPERTIES.filter((prop) => {
+      // Category match
+      if (categoryParam !== 'all' && prop.category !== categoryParam) {
+        return false;
+      }
+
+      // Min Price
+      if (filters.minPrice && prop.price < filters.minPrice) {
+        return false;
+      }
+
+      // Max Price
+      if (filters.maxPrice && prop.price > filters.maxPrice) {
+        return false;
+      }
+
+      // Property Type
+      if (filters.types && filters.types.length > 0 && !filters.types.includes(prop.type)) {
+        return false;
+      }
+
+      // Bedrooms
+      if (filters.bedrooms && filters.bedrooms !== 'any' && prop.bedrooms < Number(filters.bedrooms)) {
+        return false;
+      }
+
+      // Bathrooms
+      if (filters.bathrooms && filters.bathrooms !== 'any' && prop.bathrooms < Number(filters.bathrooms)) {
+        return false;
+      }
+
+      // Amenities
+      if (filters.amenities && filters.amenities.length > 0) {
+        const hasAll = filters.amenities.every((a) => prop.amenities.includes(a));
+        if (!hasAll) return false;
+      }
+
+      // Instant Book
+      if (filters.instantBook && !prop.rules.selfCheckIn) {
+        return false;
+      }
+
+      // Self Check-in
+      if (filters.selfCheckIn && !prop.rules.selfCheckIn) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [categoryParam, filters]);
+
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (filters.minPrice || filters.maxPrice) count++;
+    if (filters.types && filters.types.length > 0) count += filters.types.length;
+    if (filters.bedrooms && filters.bedrooms !== 'any') count++;
+    if (filters.bathrooms && filters.bathrooms !== 'any') count++;
+    if (filters.amenities && filters.amenities.length > 0) count += filters.amenities.length;
+    if (filters.instantBook) count++;
+    if (filters.selfCheckIn) count++;
+    return count;
+  }, [filters]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-10">
+      {/* Category Horizontal Navigation */}
+      <div className="sticky top-16 sm:top-20 z-30 bg-white pt-1">
+        <CategoryNav
+          onOpenFilters={() => setIsFilterModalOpen(true)}
+          activeFilterCount={activeFilterCount}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      </div>
+
+      {/* Curated Collection Banners */}
+      {categoryParam === 'all' && <CuratedCollections />}
+
+      {/* HavenStay Icons & Celebrity Stays */}
+      {categoryParam === 'all' && (
+        <section id="icons">
+          <IconsSection />
+        </section>
+      )}
+
+      {/* Property Cards Section */}
+      <div className="space-y-4 pt-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Flame className="h-5 w-5 text-[#FF385C]" />
+            <h2 className="text-xl sm:text-2xl font-black text-[#222222]">
+              {categoryParam === 'all' ? 'Popular homes around the world' : `Exceptional ${categoryParam.replace('-', ' ')} stays`}
+            </h2>
+          </div>
+          <span className="text-xs font-semibold text-gray-500">
+            {filteredProperties.length} places available
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {filteredProperties.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+            {filteredProperties.map((property, idx) => (
+              <PropertyCard
+                key={property.id}
+                property={property}
+                priority={idx < 4}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            icon={<MapPin className="h-10 w-10" />}
+            title="No exact matches found"
+            description="Try changing or clearing some of your filters to discover more extraordinary stays."
+            actionText="Clear all filters"
+            onAction={() => setFilters({})}
+          />
+        )}
+      </div>
+
+      {/* Filter Modal */}
+      <FilterModal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        filters={filters}
+        onApply={(updated) => setFilters(updated)}
+        totalResultsCount={filteredProperties.length}
+      />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="max-w-7xl mx-auto p-8"><div className="skeleton-shimmer h-96 rounded-3xl" /></div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

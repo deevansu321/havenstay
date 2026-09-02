@@ -1,0 +1,68 @@
+import { IconExperience } from '@/lib/types';
+
+export const ICONS_EXPERIENCES: IconExperience[] = [
+  {
+    id: 'icon-1',
+    title: "Sleep in the Musée d'Orsay's Iconic Clock Room",
+    tagline: 'Witness the Paris skyline through the giant clock face designed by Mathieu Lehanneur',
+    host: {
+      name: 'Mathieu Lehanneur',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+      role: 'Olympic Torch Designer & Artist',
+    },
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80',
+    category: 'Art & Design',
+    location: 'Paris, France',
+    status: 'Open for requests',
+    price: '₹0 per person',
+    description: 'Spend an unforgettable night tucked inside the gilded salon of the world’s most prestigious Impressionist museum with exclusive private night tours.',
+  },
+  {
+    id: 'icon-2',
+    title: 'Drift in the Floating Up House Among the Red Rocks',
+    tagline: 'A life-size replica of Carl Fredricksen’s house lifted with 8,000+ balloons',
+    host: {
+      name: 'Carl Fredricksen',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80',
+      role: 'Wilderness Explorer Elder',
+    },
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    category: 'Film & Fantasy',
+    location: 'Abiquiú, New Mexico, USA',
+    status: 'Open for requests',
+    price: '₹0 per person',
+    description: 'A structural feat floating 50 feet in the New Mexico skies with fully functioning vintage record players, custom explorer badges, and sunset stargazing.',
+  },
+  {
+    id: 'icon-3',
+    title: 'Sleep in the Ferrari Museum Among World Champion Cars',
+    tagline: 'A circular bed crafted from the identical leather as Ferrari seats',
+    host: {
+      name: 'Marc Gené',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
+      role: 'Scuderia Ferrari Ambassador',
+    },
+    image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80',
+    category: 'Automotive & Racing',
+    location: 'Maranello, Italy',
+    status: 'Coming soon',
+    price: '₹0 per person',
+    description: 'Surrounded by 110 championship racing trophies and Michael Schumacher’s Formula 1 vehicle, accompanied by a hot lap in a 296 GTB at Fiorano track.',
+  },
+  {
+    id: 'icon-4',
+    title: 'Live like Prince at the Legendary Purple Rain House',
+    tagline: 'The historic Minneapolis residence featured in the legendary 1984 film',
+    host: {
+      name: 'Wendy & Lisa',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
+      role: 'The Revolution Musicians',
+    },
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80',
+    category: 'Music & Culture',
+    location: 'Minneapolis, Minnesota, USA',
+    status: 'Open for requests',
+    price: '₹0 per person',
+    description: 'Explore Prince’s personal purple velvet wardrobe, listen to unreleased studio tracks on vintage tape decks, and sleep in the iconic Kid’s bedroom.',
+  },
+];
